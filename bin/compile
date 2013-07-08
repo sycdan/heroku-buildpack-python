@@ -115,13 +115,13 @@ fi
 if [ ! -f .heroku/vendor/lib/libgcj.so.12 ]; then
   echo "Downloading libgcj (for pdftk)"
   mkdir -p .heroku/vendor/lib
-  curl https://s3.amazonaws.com/idonateapi/binaries/libgcj.so.12 -O .heroku/vendor/lib/libgcj.so.12
+  curl https://s3.amazonaws.com/idonateapi/binaries/libgcj.so.12 -o .heroku/vendor/lib/libgcj.so.12
 fi
 
 if [ ! -f .heroku/vendor/bin/pdftk ]; then
   echo "Downloading pdftk"
   mkdir -p .heroku/vendor/bin
-  curl https://s3.amazonaws.com/idonateapi/binaries/pdftk -O .heroku/vendor/bin/pdftk
+  curl https://s3.amazonaws.com/idonateapi/binaries/pdftk -o .heroku/vendor/bin/pdftk
   chmod a+rx .heroku/vendor/bin/pdftk
 fi
 
