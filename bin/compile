@@ -55,7 +55,7 @@ ORIG_BUILD_DIR=$BUILD_DIR
 BUILD_DIR=$APP_DIR
 
 # Prepend proper path buildpack use.
-export PATH=$BUILD_DIR/.heroku/python/bin:$PATH
+export PATH=$BUILD_DIR/.heroku/python/bin:$BUILD_DIR/.heroku/vendor/bin:$PATH
 export PYTHONUNBUFFERED=1
 export LANG=en_US.UTF-8
 export LIBRARY_PATH=/app/.heroku/vendor/lib
@@ -109,6 +109,20 @@ if [ -f .heroku/python-version ]; then
   else
     SKIP_INSTALL=1
   fi
+fi
+
+# Install pdftk
+if [ ! -f .heroku/vendor/lib/libgcj.so.12 ]; then
+  echo "Downloading libgcj (for pdftk)"
+  mkdir -p .heroku/vendor/lib
+  curl https://s3.amazonaws.com/idonateapi/binaries/libgcj.so.12 -O .heroku/vendor/lib/libgcj.so.12
+fi
+
+if [ ! -f .heroku/vendor/bin/pdftk ]; then
+  echo "Downloading pdftk"
+  mkdir -p .heroku/vendor/bin
+  curl https://s3.amazonaws.com/idonateapi/binaries/pdftk -O .heroku/vendor/bin/pdftk
+  chmod a+rx .heroku/vendor/bin/pdftk
 fi
 
 
