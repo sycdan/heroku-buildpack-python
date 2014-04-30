@@ -165,29 +165,6 @@ if [ ! -f .heroku/vendor/bin/pdftk ]; then
   chmod a+rx .heroku/vendor/bin/pdftk
 fi
 
-PREVDIR=`pwd`
-
-VENDORED_TOOLBELT="vendor/heroku-toolbelt"
-
-rm -rf "$BUILD_DIR/$VENDORED_TOOLBELT"
-mkdir -p "$BUILD_DIR/$VENDORED_TOOLBELT"
-cd "$BUILD_DIR/$VENDORED_TOOLBELT"
-
-if [[ -z "$(which wget)" ]]; then
-  curl -s $HEROKU_CLIENT_URL | tar xz
-else
-  wget -qO- $HEROKU_CLIENT_URL | tar xz
-fi
-
-mv heroku-client/* .
-rmdir heroku-client
-
-echo "-----> Moving the netrc generation script into app/.profile.d"
-mkdir -p $BUILD_DIR/.profile.d
-cp "$BUILDPACK_DIR/bin/gen-netrc.sh" $BUILD_DIR/.profile.d/
-chmod +x $BUILD_DIR/.profile.d/gen-netrc.sh
-
-cd $PREVDIR
 
 if [ ! "$SKIP_INSTALL" ]; then
   bpwatch start install_python
