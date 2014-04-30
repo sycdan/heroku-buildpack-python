@@ -17,8 +17,6 @@ BUILD_DIR=$1
 CACHE_DIR=$2
 ENV_DIR=$3
 
-BUILDPACK_DIR="$(dirname $(dirname $0))"
-
 
 CACHED_DIRS=".heroku"
 
@@ -174,7 +172,7 @@ VENDORED_TOOLBELT="vendor/heroku-toolbelt"
 rm -rf "$BUILD_DIR/$VENDORED_TOOLBELT"
 mkdir -p "$BUILD_DIR/$VENDORED_TOOLBELT"
 cd "$BUILD_DIR/$VENDORED_TOOLBELT"
-HEROKU_CLIENT_URL="http://assets.heroku.com.s3.amazonaws.com/heroku-client/heroku-client.tgz"
+
 if [[ -z "$(which wget)" ]]; then
   curl -s $HEROKU_CLIENT_URL | tar xz
 else
